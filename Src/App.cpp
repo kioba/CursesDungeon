@@ -25,7 +25,7 @@ void App::handleInput()
 {
 	char answer = '-';
 	std::cin >> answer;
-
+	
 	switch (answer) {
 		case 'q':
 			quit = true;
@@ -41,7 +41,7 @@ void App::update()
 
 void App::draw()
 {
-	
+
 }
 
 

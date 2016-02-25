@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.2)
 project(CursesDungeon)
 
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11") 
+
 file(GLOB SOURCE_MAIN_HEADERS Src/*.hpp)
 file(GLOB SOURCE_MAIN Src/*.cpp)
 

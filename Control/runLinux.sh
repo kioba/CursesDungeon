@@ -1,3 +1,5 @@
 #!/bin/bash
 
-./../BUILD/x64/CursesDungeon
+cd ../BUILD/x64/
+./CursesDungeon
+cd ../../Control/

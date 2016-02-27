@@ -1,6 +1,8 @@
 #ifndef __APP_HPP__
 #define __APP_HPP__
 
+#include "FileParser.hpp"
+
 // #############################################################################
 // ### App #####################################################################
 // #############################################################################
@@ -9,6 +11,7 @@ class App
 {
 private: /* variables */
 	bool quit;
+	FileParser parser;
 
 protected: /* functions */
 	bool init();
@@ -17,6 +20,7 @@ protected: /* functions */
 	void draw();
 	void clear();
 
+	inline void clearScreen() const;
 public: /* functions */
 
 	App();

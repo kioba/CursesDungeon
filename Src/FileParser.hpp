@@ -27,6 +27,8 @@ public: /* function */
 	inline uint getMapMinorVersion() const;
 	inline uint getMapPatchVersion() const;
 	inline std::string getMapVersionString() const;
+
+	Map getMap() const;
 };
 
 #endif // __FILEPARSER_HPP__

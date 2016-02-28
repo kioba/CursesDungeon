@@ -32,3 +32,11 @@ void Map::appendStory(Story& story)
 	std::pair<std::string, Story> insert(story.getName(), story);
 	dungeon.insert(insert);
 }
+
+
+void Map::printMap() const
+{
+	for (const auto& story : dungeon) {
+		story.second.printStory();
+	}
+}

@@ -25,8 +25,9 @@ FileParser::FileParser(std::string path) :
 		for (size_t i = 0; i < stories; ++i) {
 			in >> size_x;
 			in >> size_y;
-			std::string name = "story one";
+			std::string name = "story ";
 			name += std::to_string(i);
+			name += ":";
 			Story story(name, Size(size_x, size_y));
 
 			// TODO: SetMap
@@ -39,7 +40,7 @@ FileParser::FileParser(std::string path) :
 			map.appendStory(story);
 		}
 
- 		in.close();
+		in.close();
 	} else {
 		std::cerr << "Could not open file: " << path << std::endl;
 	}
@@ -84,4 +85,10 @@ std::string FileParser::getMapVersionString() const
 	ss << minor_version << ".";
 	ss << patch_version;
 	return ss.str();
+}
+
+
+Map FileParser::getMap() const
+{
+	return map;
 }

@@ -2,6 +2,7 @@
 #define __APP_HPP__
 
 #include "FileParser.hpp"
+#include "Map.hpp"
 
 // #############################################################################
 // ### App #####################################################################
@@ -11,8 +12,7 @@ class App
 {
 private: /* variables */
 	bool quit;
-	FileParser parser;
-
+	Map map;
 protected: /* functions */
 	bool init();
 	void handleInput();

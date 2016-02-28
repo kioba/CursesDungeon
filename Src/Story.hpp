@@ -4,6 +4,7 @@
 #include "Defines.hpp"
 #include <string>
 #include <vector>
+#include <iostream>
 
 enum FIELD {
 	EMPTY	= 0,
@@ -23,6 +24,10 @@ public: /* funcitons */
 
 	Size getSize() const;
 	std::string getName() const;
+
+	void printStory() const;
+	char convertToChar(FIELD field) const;
+
 };
 
 #endif // __STORY_HPP__

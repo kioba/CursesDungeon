@@ -18,6 +18,8 @@ public: /* functions */
 	inline uint getStorysNumber() const;
 	inline Size getStorySize(const std::string& story_name) const;
 	void appendStory(Story& story);
+
+	void printMap() const;
 };
 
 #endif // __MAP_HPP__

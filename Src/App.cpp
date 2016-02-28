@@ -8,9 +8,10 @@
 // #############################################################################
 
 App::App() :
-	quit{false},
-	parser{"basic.cdmap"}
+	quit{false}
 {
+	FileParser parser("basic.cdmap");
+	map = parser.getMap();
 }
 
 
@@ -46,7 +47,7 @@ void App::update()
 
 void App::draw()
 {
-	parser.print();
+	map.printMap();
 }
 
 
@@ -72,8 +73,8 @@ int App::execute()
 	}
 
 	while (!quit) {
-		clearScreen();
 		update();
+		clearScreen();
 		draw();
 		handleInput();
 	}

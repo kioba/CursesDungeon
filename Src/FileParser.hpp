@@ -19,7 +19,18 @@ private: /* variables */
 
 	Map map;
 	Player player;
+
+	enum MAPTYPE {
+		EMPTY	= 0,
+		WALL	= 1,
+		HERO	= 2,
+		MONSTER	= 3
+	};
+
+	MAPTYPE getFieldfromSource(char source) const;
+
 public: /* function */
+
 	FileParser(std::string path);
 	virtual ~FileParser();
 

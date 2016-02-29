@@ -18,6 +18,7 @@ public: /* functions */
 	inline uint getStorysNumber() const;
 	inline Size getStorySize(const std::string& story_name) const;
 	void appendStory(Story& story);
+	Matrix<char> getStoryMatrix(std::string story_name);
 
 	void printMap() const;
 };

@@ -3,9 +3,8 @@
 Story::Story(std::string story_name, Size story_size) :
 	name{story_name},
 	size{story_size},
-	level{story_size.first, std::vector<FIELD>(story_size.second, FIELD::EMPTY)}
+	level{story_size.first, std::vector<char>(story_size.second, ' ')}
 {
-
 }
 
 
@@ -26,6 +25,12 @@ std::string Story::getName() const
 }
 
 
+void Story::set(Pos pos, char type)
+{
+	level[pos.first][pos.second] = type;
+}
+
+
 void Story::printStory() const
 {
 	std::cout << name << std::endl;
@@ -40,7 +45,7 @@ void Story::printStory() const
 	for (size_t i = 0; i < level.size(); ++i) {
 		std::cout << '|';
 		for (size_t j = 0; j < level[i].size(); ++j) {
-			std::cout << convertToChar(level[i][j]) << " ";
+			std::cout << level[i][j] << " ";
 		}
 		std::cout << '|' << std::endl;
 	}
@@ -49,22 +54,7 @@ void Story::printStory() const
 }
 
 
-Matrix<char> Story::asStringMatrix() const
+Matrix<char> Story::asMatrix() const
 {
-	//TODO: convert to char Matrix
-	return Matrix<char> ();
-}
-
-
-char Story::convertToChar(FIELD field) const
-{
-	char ret = '+';
-	switch (field) {
-		case EMPTY:
-			ret = ' ';
-			break;
-		default:
-			break;
-	}
-	return ret;
+	return level;
 }

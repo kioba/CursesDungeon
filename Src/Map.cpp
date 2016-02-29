@@ -40,3 +40,13 @@ void Map::printMap() const
 		story.second.printStory();
 	}
 }
+
+
+Matrix<char> Map::getStoryMatrix(std::string story_name)
+{
+	auto story = dungeon.find(story_name);
+	if (story != dungeon.end()) {
+		return story->second.asMatrix();
+	}
+	return Matrix<char> ();
+}

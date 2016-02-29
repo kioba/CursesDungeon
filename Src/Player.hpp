@@ -5,8 +5,15 @@
 
 class Player
 {
+protected: /* variables */
+	Pos pos;
+
 public: /* functions */
-	Player();
+	Player(Pos player_pos);
 	virtual ~Player();
+
+	int getX() const;
+	int getY() const;
 };
+
 #endif // __PLAYER_HPP__

@@ -5,6 +5,7 @@
 #include <vector>
 #include "Defines.hpp"
 #include "Map.hpp"
+#include "Player.hpp"
 #include "Story.hpp"
 
 class FileParser
@@ -17,6 +18,7 @@ private: /* variables */
 	uint patch_version;
 
 	Map map;
+	Player player;
 public: /* function */
 	FileParser(std::string path);
 	virtual ~FileParser();
@@ -28,7 +30,8 @@ public: /* function */
 	inline uint getMapPatchVersion() const;
 	inline std::string getMapVersionString() const;
 
-	Map getMap() const;
+	const Map& getMap() const;
+	const Player& getPlayer() const;
 };
 
 #endif // __FILEPARSER_HPP__

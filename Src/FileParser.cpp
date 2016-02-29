@@ -88,7 +88,13 @@ std::string FileParser::getMapVersionString() const
 }
 
 
-Map FileParser::getMap() const
+const Map& FileParser::getMap() const
 {
 	return map;
+}
+
+
+const Player& FileParser::getPlayer() const
+{
+	return player;
 }

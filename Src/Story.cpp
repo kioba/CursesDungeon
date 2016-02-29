@@ -48,6 +48,14 @@ void Story::printStory() const
 	std::cout << str << std::endl;
 }
 
+
+Matrix<char> Story::asStringMatrix() const
+{
+	//TODO: convert to char Matrix
+	return Matrix<char> ();
+}
+
+
 char Story::convertToChar(FIELD field) const
 {
 	char ret = '+';

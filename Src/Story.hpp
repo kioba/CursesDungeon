@@ -16,7 +16,7 @@ class Story
 protected: /* variables */
 	std::string name;
 	Size size;
-	std::vector<std::vector<FIELD>> level;
+	Matrix<FIELD> level;
 
 public: /* funcitons */
 	Story(std::string, Size size);
@@ -26,6 +26,7 @@ public: /* funcitons */
 	std::string getName() const;
 
 	void printStory() const;
+	Matrix<char> asStringMatrix() const;
 	char convertToChar(FIELD field) const;
 
 };

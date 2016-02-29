@@ -3,6 +3,7 @@
 
 #include "FileParser.hpp"
 #include "Map.hpp"
+#include "Player.hpp"
 
 // #############################################################################
 // ### App #####################################################################
@@ -13,6 +14,8 @@ class App
 private: /* variables */
 	bool quit;
 	Map map;
+	Player player;
+
 protected: /* functions */
 	bool init();
 	void handleInput();

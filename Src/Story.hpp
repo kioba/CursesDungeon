@@ -14,7 +14,7 @@ protected: /* variables */
 	Matrix<char> level;
 
 public: /* funcitons */
-	Story(std::string, Size size);
+	Story(std::string story_name, Size size);
 	virtual ~Story();
 
 	Size getSize() const;
@@ -23,6 +23,7 @@ public: /* funcitons */
 
 	void printStory() const;
 	Matrix<char> asMatrix() const;
+	char getPosValue(Pos pos) const;
 };
 
 #endif // __STORY_HPP__

@@ -58,3 +58,14 @@ Matrix<char> Story::asMatrix() const
 {
 	return level;
 }
+
+char Story::getPosValue(Pos pos) const
+{
+	if (size.first <= pos.first || 0 > pos.first ||
+		size.second <= pos.second || 0 > pos.second)
+	{
+		return '@';
+	}
+
+	return level[pos.first][pos.second];
+}

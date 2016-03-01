@@ -50,3 +50,23 @@ Matrix<char> Map::getStoryMatrix(std::string story_name)
 	}
 	return Matrix<char> ();
 }
+
+bool Map::couldMove(const Pos& from, const Pos& to) const
+{
+	auto story = dungeon.find("story 0:");
+	if (story != dungeon.end()) {
+		Size size = story->second.getSize();
+
+		if (size.first <= to.first || 0 > to.first ||
+			size.second <= to.second || 0 > to.second)
+		{
+			return false;
+		}
+
+		if (story->second.getPosValue(to) == 'x') {
+			return false;
+		}
+	}
+
+	return true;
+}

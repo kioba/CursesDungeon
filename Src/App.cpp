@@ -14,6 +14,7 @@ App::App() :
 	FileParser parser("basic.cdmap");
 	map = parser.getMap();
 	player = parser.getPlayer();
+	player.attach(&map);
 }
 
 
@@ -38,6 +39,22 @@ void App::handleInput()
 		case 'q':
 			quit = true;
 			break;
+
+		case 'w':
+			player.move(Player::UP);
+			break;
+
+		case 'a':
+			player.move(Player::LEFT);
+			break;
+
+		case 's':
+			player.move(Player::DOWN);
+			break;
+
+		case 'd':
+			player.move(Player::RIGHT);
+			break;
 	}
 }
 
@@ -49,7 +66,6 @@ void App::update()
 
 void App::draw()
 {
-	// map.printMap();
 	Matrix<char> drawing = map.getStoryMatrix("story 0:");
 
 	if (drawing.size() == 0) {

@@ -3,10 +3,12 @@
 
 #include "Story.hpp"
 #include "Defines.hpp"
+#include "EventSources.hpp"
 #include <map>
 #include <string>
 
-class Map
+class Map :
+	public MovableEventHandler
 {
 protected: /* variables */
 	std::map<std::string, Story> dungeon;
@@ -21,6 +23,9 @@ public: /* functions */
 	Matrix<char> getStoryMatrix(std::string story_name);
 
 	void printMap() const;
+
+	bool couldMove(const Pos& from, const Pos& to) const override;
+
 };
 
 #endif // __MAP_HPP__

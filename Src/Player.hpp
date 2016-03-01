@@ -2,11 +2,21 @@
 #define __PLAYER_HPP__
 
 #include "Defines.hpp"
+#include "EventSources.hpp"
 
-class Player
+class Player :
+	public MovableEventSource
 {
 protected: /* variables */
 	Pos pos;
+
+public: /* types */
+	enum Direction {
+		UP		= 0,
+		DOWN	= 1,
+		LEFT	= 2,
+		RIGHT	= 3
+	};
 
 public: /* functions */
 	Player(Pos player_pos);
@@ -14,6 +24,8 @@ public: /* functions */
 
 	int getX() const;
 	int getY() const;
+
+	void move(Direction dir);
 };
 
 #endif // __PLAYER_HPP__

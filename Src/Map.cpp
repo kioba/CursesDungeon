@@ -12,7 +12,7 @@ Map::~Map()
 
 uint Map::getStorysNumber() const
 {
-	return dungeon.size();
+	return static_cast<uint>(dungeon.size());
 }
 
 

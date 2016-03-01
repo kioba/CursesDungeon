@@ -1,3 +1,6 @@
+#ifndef __DEFINES__
+#define __DEFINES__
+
 #include <utility>
 #include <vector>
 
@@ -8,3 +11,4 @@ template <class N>
 using Matrix = std::vector<std::vector<N>>;
 
 typedef unsigned int uint;
+#endif // __DEFINES__

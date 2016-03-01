@@ -14,19 +14,20 @@ FileParser::FileParser(std::string path) :
 	std::ifstream in(path, std::ifstream::in);
 
 	if(in.is_open()) {
-		uint stories;
+		uint stories = 0;
 
 		in >> major_version;
 		in >> minor_version;
 		in >> patch_version;
 		in >> stories;
 
-		uint size_x;
-		uint size_y;
-		for (size_t i = 0; i < stories; ++i) {
+		uint size_x = 0;
+		uint size_y = 0;
+		for (uint i = 0; i < stories; ++i) {
 			in >> size_x;
 			in >> size_y;
-			char line[size_y + 10];
+			const int value = size_y + 10;
+			char* line = new char[value];
 			std::string name = "story ";
 			name += std::to_string(i);
 			name += ":";
@@ -34,9 +35,9 @@ FileParser::FileParser(std::string path) :
 
 			in.getline(line, size_y);
 			// TODO: SetMap
-			for (size_t i = 0; i < size_x; ++i) {
+			for (uint i = 0; i < size_x; ++i) {
 				in.getline(line, size_y + 10);
-				for (size_t j = 0; j < size_y; ++j) {
+				for (uint j = 0; j < size_y; ++j) {
 					if (line[j] == 'h' || line[j] == 'H') {
 						player = Player(Pos(i, j));
 						std::cout << i << " " << j << std::endl;
@@ -46,6 +47,7 @@ FileParser::FileParser(std::string path) :
 				}
 			}
 
+			delete[] line;
 			map.appendStory(story);
 		}
 

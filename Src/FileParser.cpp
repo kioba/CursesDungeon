@@ -34,9 +34,9 @@ FileParser::FileParser(std::string path) :
 			Story story(name, Size(size_x, size_y));
 
 			in.getline(line, size_y);
-			// TODO: SetMap
+
 			for (uint i = 0; i < size_x; ++i) {
-				in.getline(line, size_y + 10);
+				in.getline(line, value);
 				for (uint j = 0; j < size_y; ++j) {
 					if (line[j] == 'h' || line[j] == 'H') {
 						player = Player(Pos(i, j));

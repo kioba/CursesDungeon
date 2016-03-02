@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 #include "Defines.hpp"
 #include "Map.hpp"
 #include "Player.hpp"
@@ -17,20 +18,12 @@ private: /* variables */
 	uint minor_version;
 	uint patch_version;
 
-	Map map;
-	Player player;
+	std::shared_ptr<Story> story;
+	std::shared_ptr<Player> player;
 
-	enum MAPTYPE {
-		EMPTY	= 0,
-		WALL	= 1,
-		HERO	= 2,
-		MONSTER	= 3
-	};
-
-	MAPTYPE getFieldfromSource(char source) const;
+	void createGameElement(FIELDTYPE type, Pos pos);
 
 public: /* function */
-
 	FileParser(std::string path);
 	virtual ~FileParser();
 
@@ -41,8 +34,8 @@ public: /* function */
 	inline uint getMapPatchVersion() const;
 	inline std::string getMapVersionString() const;
 
-	const Map& getMap() const;
-	const Player& getPlayer() const;
+	const std::shared_ptr<Story> getMap() const;
+	const std::shared_ptr<Player> getPlayer() const;
 };
 
 #endif // __FILEPARSER_HPP__

@@ -18,10 +18,11 @@ private: /* variables */
 	uint minor_version;
 	uint patch_version;
 
-	std::shared_ptr<Story> story;
-	std::shared_ptr<Player> player;
+	std::unique_ptr<Story> story;
+	std::unique_ptr<Map> map;
+	std::unique_ptr<Player> player;
 
-	void createGameElement(FIELDTYPE type, Pos pos);
+	void createGameElement(char source, Pos pos);
 
 public: /* function */
 	FileParser(std::string path);
@@ -34,8 +35,8 @@ public: /* function */
 	inline uint getMapPatchVersion() const;
 	inline std::string getMapVersionString() const;
 
-	const std::shared_ptr<Story> getMap() const;
-	const std::shared_ptr<Player> getPlayer() const;
+	const Map getMap() const;
+	const Player getPlayer() const;
 };
 
 #endif // __FILEPARSER_HPP__

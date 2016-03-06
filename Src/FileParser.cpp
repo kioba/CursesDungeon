@@ -9,7 +9,9 @@ FileParser::FileParser(std::string path) :
 	major_version{0},
 	minor_version{0},
 	patch_version{0},
-	player{Pos(-1, -1)}
+	story{new Story("", Size(0, 0))},
+	map{new Map()},
+	player{new Player{Pos(-1, -1)}}
 {
 	std::ifstream in(path, std::ifstream::in);
 
@@ -27,26 +29,19 @@ FileParser::FileParser(std::string path) :
 		const int value = size_y + 10;
 		char* line = new char[value];
 
-		std::string name = "story ";
-		name += std::to_string(i);
-		name += ":";
-
-		Story story(name, Size(size_x, size_y));
+		std::string name = "story one";
+		story.reset(new Story(name, Size(size_x, size_y)));
 
 		in.getline(line, size_y);
 
 		for (uint i = 0; i < size_x; ++i) {
 			in.getline(line, value);
 			for (uint j = 0; j < size_y; ++j) {
-				FIELDTYPE type = getFieldfromSource(line[j]);
-				createGameElement(type, Pos(i, j));
-
-
-				if (line[j] == 'h' || line[j] == 'H') {
-				} else if (line[j] == 'x' || line[j] == 'X') {
-				}
+				createGameElement(line[j], Pos(i, j));
 			}
 		}
+
+		map->appendStory(*story);
 
 		delete[] line;
 
@@ -98,65 +93,62 @@ std::string FileParser::getMapVersionString() const
 }
 
 
-void FileParser::createGameElement(char source)
+void FileParser::createGameElement(char source, Pos pos)
 {
-	MAPTYPE field = EMPTY;
 	switch (source) {
 		case ' ':
 		case 'x':
 		case 'X':
-			story.set(Pos(i, j), source);
+			story->set(pos, source);
 			break;
 
 		case 'h':
 		case 'H':
-			player = new Player(Pos(i, j));
+			player.reset(new Player(pos));
 			break;
 
 		case 'a':
 		case 'A':
-			field = WEAPON;
+			// WEAPON
 			break;
 
 		case 's':
 		case 'S':
-			field = MONSTER;
+			// MONSTER
 			break;
 
 		case 'k':
 		case 'K':
-			field = TREASURE;
+			// TREASURE
 			break;
 
 		case 'i':
 		case 'I':
-			field = POTION;
+			// POTION
 			break;
 
 		case 'c':
 		case 'C':
-			field = TRAP;
+			// TRAP
 			break;
 
 		case 'j':
 		case 'J':
-			field = EXIT;
+			// EXIT
 			break;
 
 		default:
 			break;
 	}
-
-	return field;
 }
 
-const Map& FileParser::getMap() const
+const Map FileParser::getMap() const
 {
-	return map;
+	return *map;
 }
 
 
-const Player& FileParser::getPlayer() const
+const Player FileParser::getPlayer() const
 {
-	return player;
+	return *player;
 }

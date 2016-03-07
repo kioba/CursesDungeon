@@ -3,13 +3,12 @@
 
 #include "Defines.hpp"
 #include "EventSources.hpp"
+#include "Object.hpp"
 
 class Player :
-	public MovableEventSource
+	public Object,
+	public PlayerMoveEventSource
 {
-protected: /* variables */
-	Pos pos;
-
 public: /* types */
 	enum Direction {
 		UP		= 0,
@@ -21,9 +20,6 @@ public: /* types */
 public: /* functions */
 	Player(Pos player_pos);
 	virtual ~Player();
-
-	int getX() const;
-	int getY() const;
 
 	void move(Direction dir);
 };

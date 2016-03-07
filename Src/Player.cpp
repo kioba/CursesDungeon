@@ -1,25 +1,14 @@
 #include "Player.hpp"
 
 Player::Player(Pos player_pos) :
-	pos{player_pos}
+	Object{player_pos}
 {
+	draw = 'H';
 }
 
 
 Player::~Player()
 {
-}
-
-
-int Player::getX() const
-{
-	return pos.first;
-}
-
-
-int Player::getY() const
-{
-	return pos.second;
 }
 
 

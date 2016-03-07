@@ -8,6 +8,28 @@
 #include "Map.hpp"
 #include "Player.hpp"
 #include "Story.hpp"
+#include "GameObjects.hpp"
+
+class FileParser;
+
+class GameElements
+{
+public: /* variables */
+	Map map;
+	Player player;
+
+	std::vector<Weapon> weapon_vec;
+	std::vector<Monster> monster_vec;
+	std::vector<Treasure> treasure_vec;
+	std::vector<Potion> potion_vec;
+	std::vector<Trap> trap_vec;
+	std::vector<Exit> exit_vec;
+
+public: /* functions */
+	GameElements();
+	virtual ~GameElements();
+};
+
 
 class FileParser
 {
@@ -18,9 +40,8 @@ private: /* variables */
 	uint minor_version;
 	uint patch_version;
 
+	std::shared_ptr<GameElements> elements;
 	std::unique_ptr<Story> story;
-	std::unique_ptr<Map> map;
-	std::unique_ptr<Player> player;
 
 	void createGameElement(char source, Pos pos);
 
@@ -35,8 +56,7 @@ public: /* function */
 	inline uint getMapPatchVersion() const;
 	inline std::string getMapVersionString() const;
 
-	const Map getMap() const;
-	const Player getPlayer() const;
+	std::shared_ptr<GameElements> getGameELements() const;
 };
 
 #endif // __FILEPARSER_HPP__

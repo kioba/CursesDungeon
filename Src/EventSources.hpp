@@ -4,35 +4,36 @@
 #include <vector>
 #include "Defines.hpp"
 
-class MovableEventSource;
-class MovableEventHandler;
+class PlayerMoveEventSource;
+class PlayerMoveEventHandler;
 
-class MovableEventHandler
+class PlayerMoveEventHandler
 {
 private: /* variables */
-	std::vector<MovableEventSource*> sources;
+	std::vector<PlayerMoveEventSource*> sources;
 
 public: /* functions */
-	MovableEventHandler();
-	virtual ~MovableEventHandler();
+	PlayerMoveEventHandler();
+	virtual ~PlayerMoveEventHandler();
 
-	void removeSource(MovableEventSource* source);
+	void removeSource(PlayerMoveEventSource* source);
 
-	virtual bool couldMove(const Pos& from, const Pos& to) const;
+	virtual bool couldMove(const Pos& from, const Pos& to);
+	virtual void moved(const Pos& from, const Pos& to);
 };
 
 
-class MovableEventSource
+class PlayerMoveEventSource
 {
 private: /* variables */
-	std::vector<MovableEventHandler*> handlers;
+	std::vector<PlayerMoveEventHandler*> handlers;
 
 public: /* functions */
-	MovableEventSource();
-	virtual ~MovableEventSource();
+	PlayerMoveEventSource();
+	virtual ~PlayerMoveEventSource();
 
-	void attach(MovableEventHandler* handler);
-	void detach(MovableEventHandler* handler);
+	void attach(PlayerMoveEventHandler* handler);
+	void detach(PlayerMoveEventHandler* handler);
 
 	bool checkMovable(const Pos& from, const Pos& to) const;
 };

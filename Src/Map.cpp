@@ -17,7 +17,7 @@ uint Map::getStorysNumber() const
 }
 
 
-Size Map::getStorySize(const std::string& story_name) const
+Size Map::getStorySize() const
 {
 	return dungeon.getSize();
 }
@@ -35,12 +35,12 @@ void Map::printMap() const
 }
 
 
-Matrix<char> Map::getStoryMatrix(std::string story_name)
+Matrix<char> Map::getStoryMatrix()
 {
 	return dungeon.asMatrix();
 }
 
-bool Map::couldMove(const Pos& from, const Pos& to) const
+bool Map::couldMove(const Pos& from, const Pos& to)
 {
 	Size size = dungeon.getSize();
 

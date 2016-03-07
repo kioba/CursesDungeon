@@ -8,7 +8,7 @@
 #include <string>
 
 class Map :
-	public MovableEventHandler
+	public PlayerMoveEventHandler
 {
 protected: /* variables */
 	Story dungeon;
@@ -18,13 +18,13 @@ public: /* functions */
 	virtual ~Map();
 
 	inline uint getStorysNumber() const;
-	inline Size getStorySize(const std::string& story_name) const;
+	inline Size getStorySize() const;
 	void appendStory(const Story& story);
-	Matrix<char> getStoryMatrix(std::string story_name);
+	Matrix<char> getStoryMatrix();
 
 	void printMap() const;
 
-	bool couldMove(const Pos& from, const Pos& to) const override;
+	virtual bool couldMove(const Pos& from, const Pos& to) override;
 
 };
 

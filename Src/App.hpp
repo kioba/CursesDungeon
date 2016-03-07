@@ -13,8 +13,9 @@ class App
 {
 private: /* variables */
 	bool quit;
-	Map map;
-	Player player;
+
+	std::shared_ptr<GameElements> elements;
+	Matrix<char> drawing;
 
 protected: /* functions */
 	bool init();

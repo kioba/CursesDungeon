@@ -1,11 +1,11 @@
 #include "EventSources.hpp"
 
-MovableEventHandler::MovableEventHandler()
+PlayerMoveEventHandler::PlayerMoveEventHandler()
 {
 }
 
 
-MovableEventHandler::~MovableEventHandler()
+PlayerMoveEventHandler::~PlayerMoveEventHandler()
 {
 	for(auto& source : sources) {
 		if (source != nullptr) {
@@ -15,7 +15,7 @@ MovableEventHandler::~MovableEventHandler()
 }
 
 
-bool MovableEventHandler::couldMove(const Pos& from, const Pos& to) const
+bool PlayerMoveEventHandler::couldMove(const Pos& from, const Pos& to)
 {
 	(void) from;
 	(void) to;
@@ -23,7 +23,15 @@ bool MovableEventHandler::couldMove(const Pos& from, const Pos& to) const
 	return true;
 }
 
-void MovableEventHandler::removeSource(MovableEventSource* source)
+
+void PlayerMoveEventHandler::moved(const Pos& from, const Pos& to)
+{
+	(void) from;
+	(void) to;
+}
+
+
+void PlayerMoveEventHandler::removeSource(PlayerMoveEventSource* source)
 {
 	if (source == nullptr) {
 		return;
@@ -37,12 +45,12 @@ void MovableEventHandler::removeSource(MovableEventSource* source)
 }
 
 
-MovableEventSource::MovableEventSource()
+PlayerMoveEventSource::PlayerMoveEventSource()
 {
 }
 
 
-MovableEventSource::~MovableEventSource()
+PlayerMoveEventSource::~PlayerMoveEventSource()
 {
 	for(auto& handler : handlers) {
 		if (handler != nullptr) {
@@ -52,7 +60,7 @@ MovableEventSource::~MovableEventSource()
 }
 
 
-void MovableEventSource::attach(MovableEventHandler* handler)
+void PlayerMoveEventSource::attach(PlayerMoveEventHandler* handler)
 {
 	auto search = std::find(handlers.begin(), handlers.end(), handler);
 
@@ -62,7 +70,7 @@ void MovableEventSource::attach(MovableEventHandler* handler)
 }
 
 
-void MovableEventSource::detach(MovableEventHandler* handler)
+void PlayerMoveEventSource::detach(PlayerMoveEventHandler* handler)
 {
 	if (handler == nullptr) {
 		return;
@@ -76,7 +84,7 @@ void MovableEventSource::detach(MovableEventHandler* handler)
 }
 
 
-bool MovableEventSource::checkMovable(const Pos& from, const Pos& to) const
+bool PlayerMoveEventSource::checkMovable(const Pos& from, const Pos& to) const
 {
 	for (auto& handler : handlers) {
 		if (handler != nullptr) {

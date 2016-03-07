@@ -5,13 +5,93 @@
 #include <sstream>
 #include "Defines.hpp"
 
+GameElements::GameElements() :
+	player{Pos(-1, -1)}
+{
+}
+
+
+GameElements::~GameElements()
+{
+}
+
+
+void FileParser::createGameElement(char source, Pos pos)
+{
+	switch (source) {
+		case ' ':
+		case 'x':
+		case 'X':
+			story->set(pos, source);
+			break;
+
+		case 'h':
+		case 'H':
+			{
+				elements->player = Player(pos);
+			}
+			break;
+
+		case 'a':
+		case 'A':
+			// WEAPON
+			{
+				elements->weapon_vec.push_back(Weapon(pos));
+			}
+			break;
+
+		case 's':
+		case 'S':
+			// MONSTER
+			{
+				elements->monster_vec.push_back(Monster(pos));
+			}
+			break;
+
+		case 'k':
+		case 'K':
+			// TREASURE
+			{
+				elements->treasure_vec.push_back(Treasure(pos));
+			}
+			break;
+
+		case 'i':
+		case 'I':
+			// POTION
+			{
+				elements->potion_vec.push_back(Potion(pos));
+			}
+			break;
+
+		case 'c':
+		case 'C':
+			// TRAP
+			{
+				elements->trap_vec.push_back(Trap(pos));
+			}
+			break;
+
+		case 'j':
+		case 'J':
+			// EXIT
+			{
+				elements->exit_vec.push_back(Exit(pos));
+			}
+			break;
+
+		default:
+			break;
+	}
+}
+
+
 FileParser::FileParser(std::string path) :
 	major_version{0},
 	minor_version{0},
 	patch_version{0},
-	story{new Story("", Size(0, 0))},
-	map{new Map()},
-	player{new Player{Pos(-1, -1)}}
+	elements{new GameElements()},
+	story{new Story("", Size(0, 0))}
 {
 	std::ifstream in(path, std::ifstream::in);
 
@@ -41,7 +121,7 @@ FileParser::FileParser(std::string path) :
 			}
 		}
 
-		map->appendStory(*story);
+		elements->map.appendStory(*story);
 
 		delete[] line;
 
@@ -93,62 +173,7 @@ std::string FileParser::getMapVersionString() const
 }
 
 
-void FileParser::createGameElement(char source, Pos pos)
+std::shared_ptr<GameElements> FileParser::getGameELements() const
 {
-	switch (source) {
-		case ' ':
-		case 'x':
-		case 'X':
-			story->set(pos, source);
-			break;
-
-		case 'h':
-		case 'H':
-			player.reset(new Player(pos));
-			break;
-
-		case 'a':
-		case 'A':
-			// WEAPON
-			break;
-
-		case 's':
-		case 'S':
-			// MONSTER
-			break;
-
-		case 'k':
-		case 'K':
-			// TREASURE
-			break;
-
-		case 'i':
-		case 'I':
-			// POTION
-			break;
-
-		case 'c':
-		case 'C':
-			// TRAP
-			break;
-
-		case 'j':
-		case 'J':
-			// EXIT
-			break;
-
-		default:
-			break;
-	}
-}
-
-const Map FileParser::getMap() const
-{
-	return *map;
-}
-
-
-const Player FileParser::getPlayer() const
-{
-	return *player;
+	return elements;
 }

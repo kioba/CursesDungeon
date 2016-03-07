@@ -155,17 +155,36 @@ void App::draw()
 	}
 
 	std::string str(drawing[0].size() * 2 + 2, '-');
-	std::cout << str << std::endl;
+	std::stringstream ss;
+	ss << str << std::endl;
 
 	for (size_t i = 0; i < drawing.size(); ++i) {
-		std::cout << '|';
+		ss << '|';
+
+		// draw the map
 		for (size_t j = 0; j < drawing[i].size(); ++j) {
-			std::cout << drawing[i][j] << " ";
+			ss << drawing[i][j] << " ";
 		}
-		std::cout << '|' << std::endl;
+		ss << '|';
+
+		// draw the UI
+		if (i == 0) {
+			ss << "\tHero HP:\t" << elements->player.getHP() <<
+				" / " << elements->player.getMaxHP();
+		} else if(i == 1) {
+			ss << "\tHero weapon:\t" <<
+				(elements->player.hasWeapon() ? "[x]" : "[ ]");
+		} else if(i == 2) {
+			ss << "\tHero treasure:\t" <<
+				(elements->player.hasTreasure() ? "[x]" : "[ ]");
+		}
+
+		ss << std::endl;
 	}
 
-	std::cout << str << std::endl;
+	ss << str << std::endl;
+
+	std::cout << ss.str();
 }
 
 

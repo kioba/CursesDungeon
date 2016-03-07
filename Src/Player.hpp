@@ -30,6 +30,9 @@ public: /* functions */
 	void damage(int value);
 	void heal(int value);
 	void kill();
+
+	int getHP() const;
+	int getMaxHP() const;
 };
 
 #endif // __PLAYER_HPP__

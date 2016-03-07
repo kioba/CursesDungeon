@@ -101,3 +101,13 @@ void Player::kill()
 	health = 0;
 	setAliveStatus(false);
 }
+
+
+int Player::getHP() const
+{
+	return health;
+}
+int Player::getMaxHP() const
+{
+	return maxHealth;
+}

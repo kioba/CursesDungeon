@@ -1,6 +1,8 @@
 # CursesDungeon
 
-Map Marks:
+![alt tag](cursesDungeon.png)
+
+##### Map Marks:
 * "x" Wall
 * "s" Monster
 * "h" Hero
@@ -9,8 +11,6 @@ Map Marks:
 * "i" Health potion
 * "c" Trap
 * "j" Exit
-
-![alt tag](cursesDungeon.png)
 
 ##### Player:
 * Player can move hero with  UP (w), DOWN (s), RIGHT (d), LEFT (a) with the corresponding keyboard buttons.
@@ -34,4 +34,4 @@ Map Marks:
 Get the Treasure and get out of the dungeon. There could be 3 way of finish a map.
 * You die in the dungeon and noone ever hears about you any more.
 * If you feel the stress and the darkness you can always give up and run like a little bunny. Just exit without the treasure.
-* If you are brave get to the treasure and get out of the dungeon.
+* If you are brave to reach the treasure and get out of the dungeon then you win.

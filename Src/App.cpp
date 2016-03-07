@@ -1,7 +1,7 @@
 #include "App.hpp"
 
+#include <sstream>
 #include <iostream>
-//#include <cstdlib>
 
 // #############################################################################
 // ### App #####################################################################
@@ -10,9 +10,6 @@
 App::App() :
 	quit{false}
 {
-	FileParser parser("basic.cdmap");
-	elements = parser.getGameELements();
-	elements->player.attach(&elements->map);
 }
 
 
@@ -23,6 +20,38 @@ App::~App()
 
 bool App::init()
 {
+	FileParser parser("basic.cdmap");
+	elements = parser.getGameELements();
+	elements->player.attach(&elements->map);
+
+
+
+	for(auto& weapon : elements->weapon_vec) {
+		elements->player.attach(&weapon);
+	}
+
+	for(auto& monster : elements->monster_vec) {
+		elements->player.attach(&monster);
+	}
+
+	for(auto& treasure : elements->treasure_vec) {
+		elements->player.attach(&treasure);
+	}
+
+	for(auto& potion : elements->potion_vec) {
+		elements->player.attach(&potion);
+	}
+
+	for(auto& trap : elements->trap_vec) {
+		elements->player.attach(&trap);
+	}
+
+	for(auto& exit_door : elements->exit_vec) {
+		elements->player.attach(&exit_door);
+	}
+
+	update();
+
 	return true;
 }
 
@@ -32,35 +61,19 @@ void App::handleInput()
 	char answer = '-';
 	std::cin >> answer;
 	// std::cout << answer;
+	message(answer);
 
-	switch (answer) {
-		case 'q':
-			quit = true;
-			break;
-
-		case 'w':
-			elements->player.move(Player::UP);
-			break;
-
-		case 'a':
-			elements->player.move(Player::LEFT);
-			break;
-
-		case 's':
-			elements->player.move(Player::DOWN);
-			break;
-
-		case 'd':
-			elements->player.move(Player::RIGHT);
-			break;
+	for (auto& signals : queue) {
+		message(signals);
 	}
+
+	queue.clear();
 }
 
 
 void App::update()
 {
 	drawing = elements->map.getStoryMatrix();
-
 	if (drawing.size() == 0) {
 		return;
 	}
@@ -122,6 +135,16 @@ void App::update()
 			drawing[exit_door.getX()][exit_door.getY()] = exit_door.getDraw();
 		}
 	}
+
+	if (!elements->player.isAlive()) {
+		queue.push_back('-');
+	}
+
+	for (auto& signals : queue) {
+		message(signals);
+	}
+
+	queue.clear();
 }
 
 
@@ -168,12 +191,47 @@ int App::execute()
 	}
 
 	while (!quit) {
-		update();
 		clearScreen();
 		draw();
 		handleInput();
+		update();
 	}
 
 	clear();
 	return 0;
+}
+
+
+void App::message(char mess)
+{
+	switch (mess) {
+		case '-':
+		{
+			std::cout << "You Died! Press Enter to Exit!" << std::endl;
+			std::string as;
+			std::getline(std::cin, as);
+			std::cin.get();
+		}
+			// NO BREAK!
+
+		case 'q':
+			quit = true;
+			break;
+
+		case 'w':
+			elements->player.move(Player::UP);
+			break;
+
+		case 'a':
+			elements->player.move(Player::LEFT);
+			break;
+
+		case 's':
+			elements->player.move(Player::DOWN);
+			break;
+
+		case 'd':
+			elements->player.move(Player::RIGHT);
+			break;
+	}
 }

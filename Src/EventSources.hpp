@@ -4,6 +4,7 @@
 #include <vector>
 #include "Defines.hpp"
 
+class Player;
 class PlayerMoveEventSource;
 class PlayerMoveEventHandler;
 
@@ -19,7 +20,7 @@ public: /* functions */
 	void removeSource(PlayerMoveEventSource* source);
 
 	virtual bool couldMove(const Pos& from, const Pos& to);
-	virtual void moved(const Pos& from, const Pos& to);
+	virtual void moved(Player* source, const Pos& from, const Pos& to);
 };
 
 
@@ -36,6 +37,7 @@ public: /* functions */
 	void detach(PlayerMoveEventHandler* handler);
 
 	bool checkMovable(const Pos& from, const Pos& to) const;
+	void movedEvent(Player* source, const Pos& from, const Pos& to) const;
 };
 
 

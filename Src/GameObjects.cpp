@@ -12,10 +12,13 @@ Weapon::~Weapon()
 }
 
 
-void Weapon::moved(const Pos& from, const Pos& to)
+void Weapon::moved(Player* source, const Pos& from, const Pos& to)
 {
 	(void) from;
-	(void) to;
+	if (pos == to) {
+		source->addWeapon();
+		setAliveStatus(false);
+	}
 }
 
 
@@ -40,10 +43,21 @@ Monster::~Monster()
 }
 
 
-void Monster::moved(const Pos& from, const Pos& to)
+void Monster::moved(Player* source, const Pos& from, const Pos& to)
 {
 	(void) from;
 	(void) to;
+
+	if (!isInRadius(to, 1) || !isAlive()) {
+		return;
+	}
+
+	if (source->hasWeapon()) {
+		setAliveStatus(false);
+		source->damage(1);
+	} else {
+		source->kill();
+	}
 }
 
 
@@ -59,10 +73,13 @@ Treasure::~Treasure()
 }
 
 
-void Treasure::moved(const Pos& from, const Pos& to)
+void Treasure::moved(Player* source, const Pos& from, const Pos& to)
 {
-	(void) from;
-	(void) to;
+	(void)from;
+	if (pos == to) {
+		source->addTreasure();
+		setAliveStatus(false);
+	}
 }
 
 
@@ -78,10 +95,13 @@ Potion::~Potion()
 }
 
 
-void Potion::moved(const Pos& from, const Pos& to)
+void Potion::moved(Player* source, const Pos& from, const Pos& to)
 {
-	(void) from;
-	(void) to;
+	(void)from;
+	if (pos == to) {
+		source->heal(1);
+		setAliveStatus(false);
+	}
 }
 
 
@@ -97,7 +117,7 @@ Trap::~Trap()
 }
 
 
-void Trap::moved(const Pos& from, const Pos& to)
+void Trap::moved(Player* source, const Pos& from, const Pos& to)
 {
 	(void) from;
 	(void) to;
@@ -116,8 +136,9 @@ Exit::~Exit()
 }
 
 
-void Exit::moved(const Pos& from, const Pos& to)
+void Exit::moved(Player* source, const Pos& from, const Pos& to)
 {
 	(void) from;
 	(void) to;
+	(void)source;
 }

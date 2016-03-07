@@ -16,6 +16,7 @@ private: /* variables */
 
 	std::shared_ptr<GameElements> elements;
 	Matrix<char> drawing;
+	std::vector<char> queue;
 
 protected: /* functions */
 	bool init();
@@ -24,6 +25,7 @@ protected: /* functions */
 	void draw();
 	void clear();
 
+	void message(char mess);
 	inline void clearScreen() const;
 public: /* functions */
 

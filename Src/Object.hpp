@@ -19,7 +19,9 @@ public:
 	int getX() const;
 	int getY() const;
 
-	char getDraw() const; 
+	char getDraw() const;
+
+	bool isInRadius(Pos pos, int radius) const;
 };
 
 

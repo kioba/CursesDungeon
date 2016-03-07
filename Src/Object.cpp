@@ -42,3 +42,14 @@ char Object::getDraw() const
 {
 	return draw;
 }
+
+
+bool Object::isInRadius(Pos rad_pos, int radius) const
+{
+	bool horizontal = (pos.first + radius) >= rad_pos.first &&
+	 					(pos.first - radius) <= rad_pos.first;
+	bool vertical = (pos.second + radius) >= rad_pos.second &&
+	 					(pos.second - radius) <= rad_pos.second;
+
+	return horizontal && vertical;
+}

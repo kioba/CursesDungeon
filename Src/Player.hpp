@@ -9,6 +9,12 @@ class Player :
 	public Object,
 	public PlayerMoveEventSource
 {
+private: /* variables */
+	bool weapon;
+	bool treasure;
+	int health;
+	int maxHealth;
+
 public: /* types */
 	enum Direction {
 		UP		= 0,
@@ -22,6 +28,16 @@ public: /* functions */
 	virtual ~Player();
 
 	void move(Direction dir);
+
+	void addWeapon();
+	bool hasWeapon() const;
+
+	void addTreasure();
+	bool hasTreasure() const;
+
+	void damage(int value);
+	void heal(int value);
+	void kill();
 };
 
 #endif // __PLAYER_HPP__

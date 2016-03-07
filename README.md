@@ -1,14 +1,14 @@
 # CursesDungeon
 
 Map Marks:
-* [x] Wall
-* [s] Monster
-* [h] Hero
-* [a] Sword
-* [k] Treasure
-* [i] Health potion
-* [c] Trap
-* [j] Exit
+* "x" Wall
+* "s" Monster
+* "h" Hero
+* "a" Sword
+* "k" Treasure
+* "i" Health potion
+* "c" Trap
+* "j" Exit
 
 ![alt tag](cursesDungeon.png)
 

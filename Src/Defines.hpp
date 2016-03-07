@@ -11,4 +11,12 @@ template <class N>
 using Matrix = std::vector<std::vector<N>>;
 
 typedef unsigned int uint;
+
+enum Direction {
+	UP		= 0,
+	DOWN	= 1,
+	LEFT	= 2,
+	RIGHT	= 3
+};
+
 #endif // __DEFINES__

@@ -219,19 +219,19 @@ void App::message(char mess)
 			break;
 
 		case 'w':
-			elements->player.move(Player::UP);
+			elements->player.move(UP);
 			break;
 
 		case 'a':
-			elements->player.move(Player::LEFT);
+			elements->player.move(LEFT);
 			break;
 
 		case 's':
-			elements->player.move(Player::DOWN);
+			elements->player.move(DOWN);
 			break;
 
 		case 'd':
-			elements->player.move(Player::RIGHT);
+			elements->player.move(RIGHT);
 			break;
 	}
 }

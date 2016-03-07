@@ -15,7 +15,7 @@ public: /* functions */
 	Weapon(Pos obj_pos);
 	virtual ~Weapon();
 
-	virtual void moved(Player* source, const Pos& from, const Pos& to) override;
+	virtual void moved(MoveEvent& event) override;
 };
 
 
@@ -28,7 +28,7 @@ public: /* functions */
 	virtual ~Monster();
 
 	virtual bool couldMove(const Pos& from, const Pos& to) override;
-	virtual void moved(Player* source, const Pos& from, const Pos& to) override;
+	virtual void moved(MoveEvent& event) override;
 };
 
 
@@ -40,7 +40,7 @@ public: /* functions */
 	Treasure(Pos obj_pos);
 	virtual ~Treasure();
 
-	virtual void moved(Player* source, const Pos& from, const Pos& to) override;
+	virtual void moved(MoveEvent& event) override;
 };
 
 
@@ -52,7 +52,7 @@ public: /* functions */
 	Potion(Pos obj_pos);
 	virtual ~Potion();
 
-	virtual void moved(Player* source, const Pos& from, const Pos& to) override;
+	virtual void moved(MoveEvent& event) override;
 };
 
 
@@ -60,11 +60,15 @@ class Trap :
 	public Object,
 	public PlayerMoveEventHandler
 {
+private: /* variables */
+	bool isTriggered;
+
 public: /* functions */
 	Trap(Pos obj_pos);
 	virtual ~Trap();
 
-	virtual void moved(Player* source, const Pos& from, const Pos& to) override;
+	virtual bool couldMove(const Pos& from, const Pos& to) override;
+	virtual void moved(MoveEvent& event) override;
 };
 
 
@@ -76,7 +80,7 @@ public: /* functions */
 	Exit(Pos obj_pos);
 	virtual ~Exit();
 
-	virtual void moved(Player* source, const Pos& from, const Pos& to) override;
+	virtual void moved(MoveEvent& event) override;
 };
 
 #endif // __GAMEOBJECTS_HPP__

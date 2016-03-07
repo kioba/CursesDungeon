@@ -5,7 +5,9 @@
 #include "Defines.hpp"
 
 class Player;
+enum Direction;
 class PlayerMoveEventSource;
+class MoveEvent;
 class PlayerMoveEventHandler;
 
 class PlayerMoveEventHandler
@@ -20,7 +22,7 @@ public: /* functions */
 	void removeSource(PlayerMoveEventSource* source);
 
 	virtual bool couldMove(const Pos& from, const Pos& to);
-	virtual void moved(Player* source, const Pos& from, const Pos& to);
+	virtual void moved(MoveEvent& event);
 };
 
 
@@ -37,8 +39,23 @@ public: /* functions */
 	void detach(PlayerMoveEventHandler* handler);
 
 	bool checkMovable(const Pos& from, const Pos& to) const;
-	void movedEvent(Player* source, const Pos& from, const Pos& to) const;
+	void movedEvent(MoveEvent& event) const;
 };
 
+class MoveEvent
+{
+public:
+	Player* player;
+	Pos from;
+	Pos to;
+	Direction dir;
+
+	MoveEvent() :
+		player{nullptr}
+	{}
+
+	virtual ~MoveEvent()
+	{}
+};
 
 #endif // __ENVENTSOURCE_HPP__

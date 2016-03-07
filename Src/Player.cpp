@@ -17,7 +17,7 @@ Player::~Player()
 }
 
 
-void Player::move(Direction dir)
+bool Player::move(Direction dir)
 {
 	Pos to = pos;
 	switch (dir) {
@@ -39,12 +39,20 @@ void Player::move(Direction dir)
 	}
 
 	if(!checkMovable(pos, to)) {
-		return;
+		return false;
 	}
+
 	Pos from = pos;
 	pos = to;
 
-	movedEvent(this, from, to);
+	MoveEvent event;
+	event.player = this;
+	event.from = from;
+	event.to = to;
+	event.dir = dir;
+	movedEvent(event);
+
+	return true;
 }
 
 

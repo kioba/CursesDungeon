@@ -15,19 +15,11 @@ private: /* variables */
 	int health;
 	int maxHealth;
 
-public: /* types */
-	enum Direction {
-		UP		= 0,
-		DOWN	= 1,
-		LEFT	= 2,
-		RIGHT	= 3
-	};
-
 public: /* functions */
 	Player(Pos player_pos);
 	virtual ~Player();
 
-	void move(Direction dir);
+	bool move(Direction dir);
 
 	void addWeapon();
 	bool hasWeapon() const;

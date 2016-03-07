@@ -24,11 +24,10 @@ bool PlayerMoveEventHandler::couldMove(const Pos& from, const Pos& to)
 }
 
 
-void PlayerMoveEventHandler::moved(Player* source, const Pos& from, const Pos& to)
+void PlayerMoveEventHandler::moved(MoveEvent& event)
 {
-	(void) from;
-	(void) to;
-	(void) source;
+	(void) event;
+
 }
 
 
@@ -100,15 +99,15 @@ bool PlayerMoveEventSource::checkMovable(const Pos& from, const Pos& to) const
 
 
 
-void PlayerMoveEventSource::movedEvent(Player* source, const Pos& from, const Pos& to) const
+void PlayerMoveEventSource::movedEvent(MoveEvent& event) const
 {
-	if (source == nullptr) {
+	if (event.player == nullptr) {
 		return;
 	}
 
 	for (auto& handler : handlers) {
 		if (handler != nullptr) {
-			handler->moved(source, from, to);
+			handler->moved(event);
 		}
 	}
 }

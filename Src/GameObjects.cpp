@@ -12,11 +12,10 @@ Weapon::~Weapon()
 }
 
 
-void Weapon::moved(Player* source, const Pos& from, const Pos& to)
+void Weapon::moved(MoveEvent& event)
 {
-	(void) from;
-	if (pos == to) {
-		source->addWeapon();
+	if (pos == event.to) {
+		event.player->addWeapon();
 		setAliveStatus(false);
 	}
 }
@@ -43,20 +42,17 @@ Monster::~Monster()
 }
 
 
-void Monster::moved(Player* source, const Pos& from, const Pos& to)
+void Monster::moved(MoveEvent& event)
 {
-	(void) from;
-	(void) to;
-
-	if (!isInRadius(to, 1) || !isAlive()) {
+	if (!isInRadius(event.to, 1) || !isAlive()) {
 		return;
 	}
 
-	if (source->hasWeapon()) {
+	if (event.player->hasWeapon()) {
 		setAliveStatus(false);
-		source->damage(1);
+		event.player->damage(1);
 	} else {
-		source->kill();
+		event.player->kill();
 	}
 }
 
@@ -73,11 +69,10 @@ Treasure::~Treasure()
 }
 
 
-void Treasure::moved(Player* source, const Pos& from, const Pos& to)
+void Treasure::moved(MoveEvent& event)
 {
-	(void)from;
-	if (pos == to) {
-		source->addTreasure();
+	if (pos == event.to) {
+		event.player->addTreasure();
 		setAliveStatus(false);
 	}
 }
@@ -95,18 +90,18 @@ Potion::~Potion()
 }
 
 
-void Potion::moved(Player* source, const Pos& from, const Pos& to)
+void Potion::moved(MoveEvent& event)
 {
-	(void)from;
-	if (pos == to) {
-		source->heal(1);
+	if (pos == event.to) {
+		event.player->heal(1);
 		setAliveStatus(false);
 	}
 }
 
 
 Trap::Trap(Pos obj_pos) :
-	Object(obj_pos)
+	Object(obj_pos),
+	isTriggered{false}
 {
 	draw = 'c';
 }
@@ -117,10 +112,26 @@ Trap::~Trap()
 }
 
 
-void Trap::moved(Player* source, const Pos& from, const Pos& to)
+bool Trap::couldMove(const Pos& from, const Pos& to)
 {
-	(void) from;
-	(void) to;
+	if (isTriggered && pos == to) {
+		return false;
+	}
+
+	return true;
+}
+
+
+void Trap::moved(MoveEvent& event)
+{
+	if (pos != event.to) {
+		return;
+	}
+
+	if(event.player->move(event.dir)) {
+		draw = 'x';
+		isTriggered = true;
+	}
 }
 
 
@@ -136,9 +147,7 @@ Exit::~Exit()
 }
 
 
-void Exit::moved(Player* source, const Pos& from, const Pos& to)
+void Exit::moved(MoveEvent& event)
 {
-	(void) from;
-	(void) to;
-	(void)source;
+	(void) event;
 }

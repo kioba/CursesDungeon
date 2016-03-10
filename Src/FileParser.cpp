@@ -22,11 +22,13 @@ void FileParser::createGameElement(char source, Pos pos)
 		case ' ':
 		case 'x':
 		case 'X':
+			// WALL
 			story->set(pos, source);
 			break;
 
 		case 'h':
 		case 'H':
+			// HERO
 			{
 				elements->player = Player(pos);
 			}

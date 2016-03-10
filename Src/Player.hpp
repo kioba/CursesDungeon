@@ -12,8 +12,13 @@ class Player :
 private: /* variables */
 	bool weapon;
 	bool treasure;
+	bool autopilot;
 	int health;
 	int maxHealth;
+
+private: /* functions */
+	void autopilotMove();
+	bool playerMove(Direction dir);
 
 public: /* functions */
 	Player(Pos player_pos);
@@ -33,6 +38,9 @@ public: /* functions */
 
 	int getHP() const;
 	int getMaxHP() const;
+
+	void setAutopilotStatus(bool state);
+	bool isAutopilot() const;
 };
 
 #endif // __PLAYER_HPP__

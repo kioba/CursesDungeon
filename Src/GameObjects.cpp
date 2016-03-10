@@ -44,7 +44,7 @@ Monster::~Monster()
 
 void Monster::moved(MoveEvent& event)
 {
-	if (!isInRadius(event.to, 1) || !isAlive()) {
+	if (!isInRadius(event.to, 0) || !isAlive()) {
 		return;
 	}
 

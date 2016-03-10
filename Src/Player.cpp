@@ -5,6 +5,7 @@ Player::Player(Pos player_pos) :
 	Object{player_pos},
 	weapon{false},
 	treasure{false},
+	autopilot{false},
 	health{2},
 	maxHealth{2}
 {
@@ -19,40 +20,13 @@ Player::~Player()
 
 bool Player::move(Direction dir)
 {
-	Pos to = pos;
-	switch (dir) {
-		case UP:
-			to.first -= 1;
-			break;
-
-		case DOWN:
-			to.first += 1;
-			break;
-
-		case LEFT:
-			to.second -= 1;
-			break;
-
-		case RIGHT:
-			to.second += 1;
-			break;
+	bool result = true;
+	if (autopilot) {
+		autopilotMove();
+	} else {
+		result = playerMove(dir);
 	}
-
-	if(!checkMovable(pos, to)) {
-		return false;
-	}
-
-	Pos from = pos;
-	pos = to;
-
-	MoveEvent event;
-	event.player = this;
-	event.from = from;
-	event.to = to;
-	event.dir = dir;
-	movedEvent(event);
-
-	return true;
+	return result;
 }
 
 
@@ -110,4 +84,61 @@ int Player::getHP() const
 int Player::getMaxHP() const
 {
 	return maxHealth;
+}
+
+
+void Player::setAutopilotStatus(bool state)
+{
+	autopilot = state;
+}
+
+
+bool Player::isAutopilot() const
+{
+	return autopilot;
+}
+
+
+void Player::autopilotMove()
+{
+
+}
+
+
+bool Player::playerMove(Direction dir)
+{
+	Pos to = pos;
+	switch (dir) {
+		case UP:
+			to.first -= 1;
+			break;
+
+		case DOWN:
+			to.first += 1;
+			break;
+
+		case LEFT:
+			to.second -= 1;
+			break;
+
+		case RIGHT:
+			to.second += 1;
+			break;
+	}
+
+	if(!checkMovable(pos, to)) {
+		return false;
+	}
+
+	Pos from = pos;
+	pos = to;
+
+	MoveEvent event;
+	event.player = this;
+	event.from = from;
+	event.to = to;
+	event.dir = dir;
+	movedEvent(event);
+
+	return true;
 }

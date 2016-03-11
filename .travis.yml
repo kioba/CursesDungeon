@@ -1,22 +1,22 @@
 language: cpp
 compiler:
-	- clang
-	- gcc
+- clang
+- gcc
 os:
-	- linux
-	- osx
-	- windows
-# before_install:
-#   - test -n $CC  && unset CC
-#   - test -n $CXX && unset CXX
-# - if [ "$CXX" == "clang++" ]; then export CXX="clang++" && bii cpp:build; fi
-# - if [ "$CXX" == "g++" ];     then export CXX="g++"     && bii cpp:build; fi
+- linux
+- osx
+- windows
 
 notifications:
-  email: charlssom@gmail.com
+    email:
+    recipients:
+      - charlssom@gmail.com
+    on_failure: always
+    on_success: always
+
 script:
-	mkdir BUILD &&
-	cd BUILD &&
-	cmake -DCOVERALLS=ON -DCMAKE_BUILD_TYPE=Debug .. &&
-	cmake --build . &&
-	cmake --build . --target coveralls
+mkdir BUILD &&
+cd BUILD &&
+cmake -DCOVERALLS=ON -DCMAKE_BUILD_TYPE=Debug .. &&
+cmake --build . &&
+cmake --build . --target coveralls

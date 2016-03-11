@@ -1,22 +1,11 @@
 language: cpp
+
 compiler:
 - clang
 - gcc
+
 os:
 - linux
 - osx
-- windows
 
-notifications:
-    email:
-    recipients:
-      - charlssom@gmail.com
-    on_failure: always
-    on_success: always
-
-script:
-mkdir BUILD &&
-cd BUILD &&
-cmake -DCOVERALLS=ON -DCMAKE_BUILD_TYPE=Debug .. &&
-cmake --build . &&
-cmake --build . --target coveralls
+script: mkdir BUILD && cd BUILD && cmake -DCOVERALLS=ON -DCMAKE_BUILD_TYPE=Debug .. && cmake --build . && cmake --build . --target coveralls

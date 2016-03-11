@@ -1,4 +1,5 @@
 #include "EventSources.hpp"
+#include <algorithm>
 
 PlayerMoveEventHandler::PlayerMoveEventHandler()
 {

@@ -6,9 +6,17 @@ os:
 	- linux
 	- osx
 	- windows
-
-- if [ "$CXX" == "clang++" ]; then export CXX="clang++" && bii cpp:build; fi
-- if [ "$CXX" == "g++" ];     then export CXX="g++"     && bii cpp:build; fi
+# before_install:
+#   - test -n $CC  && unset CC
+#   - test -n $CXX && unset CXX
+# - if [ "$CXX" == "clang++" ]; then export CXX="clang++" && bii cpp:build; fi
+# - if [ "$CXX" == "g++" ];     then export CXX="g++"     && bii cpp:build; fi
 
 notifications:
   email: charlssom@gmail.com
+script:
+	mkdir BUILD &&
+	cd BUILD &&
+	cmake -DCOVERALLS=ON -DCMAKE_BUILD_TYPE=Debug .. &&
+	cmake --build . &&
+	cmake --build . --target coveralls

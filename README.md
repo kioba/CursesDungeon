@@ -1,5 +1,5 @@
 # CursesDungeon
-
+[![Build Status](https://travis-ci.org/kioba/CursesDungeon.svg?branch=master)](https://travis-ci.org/kioba/CursesDungeon)
 ![alt tag](cursesDungeon.png)
 
 ##### Map Marks:

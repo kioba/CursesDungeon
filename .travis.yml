@@ -16,4 +16,5 @@ addons:
       - cmake
       - cmake-data
 
-script: mkdir BUILD && cd BUILD && cmake -DCOVERALLS=ON -DCMAKE_BUILD_TYPE=Debug .. && cmake --build . && cmake --build . --target coveralls
+script: mkdir BUILD && cd BUILD && mkdir debug && cd debug && cmake -DCOVERALLS=ON -DCMAKE_BUILD_TYPE=Debug ../.. && cmake --build .
+script: mkdir BUILD && cd BUILD && mkdir release && cd release && cmake -DCOVERALLS=ON -DCMAKE_BUILD_TYPE=Debug ../.. && cmake --build .

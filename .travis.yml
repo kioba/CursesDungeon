@@ -1,0 +1,14 @@
+language: cpp
+compiler:
+	- clang
+	- gcc
+os:
+	- linux
+	- osx
+	- windows
+
+- if [ "$CXX" == "clang++" ]; then export CXX="clang++" && bii cpp:build; fi
+- if [ "$CXX" == "g++" ];     then export CXX="g++"     && bii cpp:build; fi
+
+notifications:
+  email: charlssom@gmail.com

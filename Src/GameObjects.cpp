@@ -1,4 +1,5 @@
 #include "GameObjects.hpp"
+#include "App.hpp"
 
 Weapon::Weapon(Pos obj_pos) :
 	Object(obj_pos)
@@ -149,5 +150,21 @@ Exit::~Exit()
 
 void Exit::moved(MoveEvent& event)
 {
-	(void) event;
+	if (pos != event.to) {
+		return;
+	}
+
+	App::getInstance().pushMainEventLoop([&event](App& app){
+		if (event.player->hasTreasure()) {
+			std::cout << "You Won! Press Enter to Exit!" << std::endl;
+		} else {
+			std::cout << "You gave up! Press Enter to Exit!" << std::endl;
+		}
+
+		std::string as;
+		std::getline(std::cin, as);
+		std::cin.get();
+
+		app.handleMessage('q');
+	});
 }

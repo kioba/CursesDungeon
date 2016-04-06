@@ -4,6 +4,7 @@
 #include "FileParser.hpp"
 #include "Map.hpp"
 #include "Player.hpp"
+#include <functional>
 
 // #############################################################################
 // ### App #####################################################################
@@ -18,6 +19,12 @@ private: /* variables */
 	Matrix<char> drawing;
 	std::vector<char> queue;
 
+private: /* functions */
+	App();
+	virtual ~App();
+	App(const App& app) = delete;
+	App& operator=(const App& app) = delete;
+
 protected: /* functions */
 	bool init();
 	void handleInput();
@@ -25,14 +32,14 @@ protected: /* functions */
 	void draw();
 	void clear();
 
-	void message(char mess);
 	inline void clearScreen() const;
+
 public: /* functions */
 
-	App();
-	virtual ~App();
-
+	static App& getInstance();
 	int execute();
+	void handleMessage(char mess);
+	void pushMainEventLoop(std::function<void(App&)> func);
 };
 
 #endif // __APP_HPP__

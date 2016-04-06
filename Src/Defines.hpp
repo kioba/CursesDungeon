@@ -4,7 +4,7 @@
 #include <utility>
 #include <vector>
 
-typedef std::pair<unsigned int, unsigned int> Size;
+typedef std::pair<int, int> Size;
 typedef std::pair<int, int> Pos;
 
 template <class N>

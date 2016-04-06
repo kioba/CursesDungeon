@@ -18,13 +18,18 @@ App::~App()
 }
 
 
+App& App::getInstance()
+{
+	static App app;
+	return app;
+}
+
+
 bool App::init()
 {
 	FileParser parser("basic.cdmap");
 	elements = parser.getGameELements();
 	elements->player.attach(&elements->map);
-
-
 
 	for(auto& weapon : elements->weapon_vec) {
 		elements->player.attach(&weapon);
@@ -61,10 +66,10 @@ void App::handleInput()
 	char answer = '-';
 	std::cin >> answer;
 	// std::cout << answer;
-	message(answer);
+	handleMessage(answer);
 
 	for (auto& signals : queue) {
-		message(signals);
+		handleMessage(signals);
 	}
 
 	queue.clear();
@@ -137,14 +142,15 @@ void App::update()
 	}
 
 	if (!elements->player.isAlive()) {
-		queue.push_back('-');
-	}
+		pushMainEventLoop([](App& app){
+			std::cout << "You Died! Press Enter to Exit!" << std::endl;
+			std::string as;
+			std::getline(std::cin, as);
+			std::cin.get();
 
-	for (auto& signals : queue) {
-		message(signals);
+			app.handleMessage('q');
+		});
 	}
-
-	queue.clear();
 }
 
 
@@ -221,18 +227,9 @@ int App::execute()
 }
 
 
-void App::message(char mess)
+void App::handleMessage(char mess)
 {
 	switch (mess) {
-		case '-':
-		{
-			std::cout << "You Died! Press Enter to Exit!" << std::endl;
-			std::string as;
-			std::getline(std::cin, as);
-			std::cin.get();
-		}
-			// NO BREAK!
-
 		case 'q':
 			quit = true;
 			break;
@@ -253,4 +250,10 @@ void App::message(char mess)
 			elements->player.move(RIGHT);
 			break;
 	}
+}
+
+
+void App::pushMainEventLoop(std::function<void(App&)> func)
+{
+	func(*this);
 }

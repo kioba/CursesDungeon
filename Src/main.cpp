@@ -6,6 +6,5 @@ int main(int argc, char* args[])
 	(void)argc;
 	(void)args;
 
-	App app;
-	return app.execute();
+	return App::getInstance().execute();
 }

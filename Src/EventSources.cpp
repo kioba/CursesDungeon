@@ -25,6 +25,15 @@ bool PlayerMoveEventHandler::couldMove(const Pos& from, const Pos& to)
 }
 
 
+bool PlayerMoveEventHandler::isDanger(const Pos& from, const Pos& to)
+{
+	(void) from;
+	(void) to;
+
+	return false;
+}
+
+
 void PlayerMoveEventHandler::moved(MoveEvent& event)
 {
 	(void) event;
@@ -98,6 +107,19 @@ bool PlayerMoveEventSource::checkMovable(const Pos& from, const Pos& to) const
 	return true;
 }
 
+
+bool PlayerMoveEventSource::checkDanger(const Pos& from, const Pos& to) const
+{
+	for (auto& handler : handlers) {
+		if (handler != nullptr) {
+			if (!handler->isDanger(from, to)) {
+				return false;
+			}
+		}
+	}
+
+	return true;
+}
 
 
 void PlayerMoveEventSource::movedEvent(MoveEvent& event) const

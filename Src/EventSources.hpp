@@ -22,6 +22,7 @@ public: /* functions */
 	void removeSource(PlayerMoveEventSource* source);
 
 	virtual bool couldMove(const Pos& from, const Pos& to);
+	virtual bool isDanger(const Pos& from, const Pos& to);
 	virtual void moved(MoveEvent& event);
 };
 
@@ -39,6 +40,8 @@ public: /* functions */
 	void detach(PlayerMoveEventHandler* handler);
 
 	bool checkMovable(const Pos& from, const Pos& to) const;
+	bool checkDanger(const Pos& from, const Pos& to) const;
+	
 	void movedEvent(MoveEvent& event) const;
 };
 

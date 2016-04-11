@@ -229,26 +229,49 @@ int App::execute()
 
 void App::handleMessage(char mess)
 {
-	switch (mess) {
-		case 'q':
-			quit = true;
-			break;
+	if (elements->player.isAutopilot()) {
+		switch (mess) {
+			case 'q':
+				quit = true;
+				break;
 
-		case 'w':
-			elements->player.move(UP);
-			break;
+			case 'r':
+				elements->player.setAutopilotStatus(false);
+				break;
 
-		case 'a':
-			elements->player.move(LEFT);
-			break;
+			default:
+				elements->player.autopilotMove();
+				break;
+		}
+	} else {
+		switch (mess) {
+			case 'q':
+				quit = true;
+				break;
 
-		case 's':
-			elements->player.move(DOWN);
-			break;
+			case 'w':
+				elements->player.move(UP);
+				break;
 
-		case 'd':
-			elements->player.move(RIGHT);
-			break;
+			case 'a':
+				elements->player.move(LEFT);
+				break;
+
+			case 's':
+				elements->player.move(DOWN);
+				break;
+
+			case 'd':
+				elements->player.move(RIGHT);
+				break;
+
+			case 'e':
+				elements->player.setAutopilotStatus(true);
+				break;
+
+			default:
+				break;
+		}
 	}
 }
 

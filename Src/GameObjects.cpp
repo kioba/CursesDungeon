@@ -31,6 +31,15 @@ bool Monster::couldMove(const Pos& from, const Pos& to)
 }
 
 
+bool Monster::isDanger(const Pos& from, const Pos& to)
+{
+	(void) from;
+	(void) to;
+
+	return true;
+}
+
+
 Monster::Monster(Pos obj_pos) :
 	Object(obj_pos)
 {

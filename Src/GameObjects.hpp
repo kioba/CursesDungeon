@@ -28,6 +28,7 @@ public: /* functions */
 	virtual ~Monster();
 
 	virtual bool couldMove(const Pos& from, const Pos& to) override;
+	virtual bool isDanger(const Pos& from, const Pos& to) override;
 	virtual void moved(MoveEvent& event) override;
 };
 

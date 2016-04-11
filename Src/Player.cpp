@@ -81,6 +81,8 @@ int Player::getHP() const
 {
 	return health;
 }
+
+
 int Player::getMaxHP() const
 {
 	return maxHealth;
@@ -90,6 +92,45 @@ int Player::getMaxHP() const
 void Player::setAutopilotStatus(bool state)
 {
 	autopilot = state;
+
+	if (autopilot) {
+		PathfindNode start_node;
+		start_node.pos = pos;
+		road.push_back(start_node);
+
+		bool found = false;
+		int act_node_idx = 0;
+
+		while (found) {
+
+			for (size_t i = 0; i < 4; ++i) {
+				Pos to = pos;
+				switch (i) {
+					case UP:
+						to.first -= 1;
+						break;
+
+					case DOWN:
+						to.first += 1;
+						break;
+
+					case LEFT:
+						to.second -= 1;
+						break;
+
+					case RIGHT:
+						to.second += 1;
+						break;
+				}
+
+				if(!checkMovable(pos, to)) {
+					road[act_node_idx].crossroad.push_back(to);
+				}
+			}
+		}
+	} else {
+		road.clear();
+	}
 }
 
 

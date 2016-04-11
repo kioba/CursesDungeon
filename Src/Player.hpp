@@ -5,6 +5,13 @@
 #include "EventSources.hpp"
 #include "Object.hpp"
 
+struct PathfindNode
+{
+	Pos pos;
+	std::vector<Pos> crossroad;
+};
+
+
 class Player :
 	public Object,
 	public PlayerMoveEventSource
@@ -15,9 +22,9 @@ private: /* variables */
 	bool autopilot;
 	int health;
 	int maxHealth;
+	std::vector<PathfindNode> road;
 
 private: /* functions */
-	void autopilotMove();
 	bool playerMove(Direction dir);
 
 public: /* functions */
@@ -25,6 +32,7 @@ public: /* functions */
 	virtual ~Player();
 
 	bool move(Direction dir);
+	void autopilotMove();
 
 	void addWeapon();
 	bool hasWeapon() const;

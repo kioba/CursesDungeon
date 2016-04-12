@@ -3,7 +3,7 @@
 Story::Story(std::string story_name, Size story_size) :
 	name{story_name},
 	size{story_size},
-	level{story_size.first, std::vector<char>(story_size.second, ' ')}
+	level{static_cast<size_t>(story_size.first), std::vector<char>(story_size.second, ' ')}
 {
 }
 

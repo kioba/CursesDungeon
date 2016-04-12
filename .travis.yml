@@ -8,6 +8,15 @@ os:
 - linux
 - osx
 
+before_install:
+  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+  - sudo apt-get update -qq
+  - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
+
+script:
+    - mkdir BUILD && cd BUILD && mkdir debug && cd debug && cmake -DCOVERALLS=ON -DCMAKE_BUILD_TYPE=Debug ../.. && cmake --build .
+
 addons:
   apt:
     sources:
@@ -15,5 +24,3 @@ addons:
     packages:
       - cmake
       - cmake-data
-
-script: mkdir BUILD && cd BUILD && mkdir debug && cd debug && cmake -DCOVERALLS=ON -DCMAKE_BUILD_TYPE=Debug ../.. && cmake --build .
